@@ -10,15 +10,15 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage){
         try{
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("../Vistas/GetStarted.fxml"));
-            Pane ventana = (Pane) loader.load();
+            Pane ventana = loader.load();
 
             Scene escena = new Scene(ventana);
             stage.setScene(escena);
-            stage.setTitle("Empezamos");
+            stage.setResizable(false);
             stage.show();
 
         }catch(IOException ioe){
@@ -26,5 +26,7 @@ public class Main extends Application {
         }
     }
 
-    public static void main(String args[]){  launch(args); }
+    public static void main(String[] args){
+        launch(args);
+    }
 }

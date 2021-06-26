@@ -1,14 +1,11 @@
 package Controles;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -17,11 +14,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class GetStartedControll implements Initializable {
-
-    @FXML
-    private ImageView imgStarted;
-
+public class LoginControll implements Initializable {
     @FXML
     private Button btnEntrar;
 
@@ -29,14 +22,12 @@ public class GetStartedControll implements Initializable {
     public void initialize(URL url, ResourceBundle rb){
 
     }
-    @FXML
-    private void click(ActionEvent Ae){
+
+    public void closeWindows(){
         try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Login.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/GetStarted.fxml"));
 
             Parent root = loader.load();
-
-            LoginControll logControll= loader.getController();
 
             Scene escena = new Scene(root);
             Stage stage = new Stage();
@@ -45,19 +36,11 @@ public class GetStartedControll implements Initializable {
             stage.setResizable(false);
             stage.show();
 
-            stage.setOnCloseRequest(e -> logControll.closeWindows());
-
             Stage myStage = (Stage) this.btnEntrar.getScene().getWindow();
             myStage.close();
 
-        } catch (IOException ioe) {
-            Logger.getLogger(GetStartedControll.class.getName()).log(Level.SEVERE, null, ioe);
+        }catch(IOException ioe){
+            Logger.getLogger(LoginControll.class.getName()).log(Level.SEVERE, null, ioe);
         }
     }
-    Image imgStart = new Image(getClass().getResourceAsStream("../imgs/SysCheck.jpeg"));
-
-    public void displayImage(){
-        imgStarted.setImage(imgStart);
-    }
-
 }

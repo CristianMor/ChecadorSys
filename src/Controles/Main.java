@@ -1,11 +1,19 @@
 package Controles;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import Modelos.ConnectionPool;
+import Modelos.Usuarios;
+import Modelos.UsuariosDAO;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class Main extends Application {
 
@@ -17,8 +25,8 @@ public class Main extends Application {
             Pane ventana = loader.load();
 
             Scene escena = new Scene(ventana);
+            stage.initStyle(StageStyle.UNDECORATED);
             stage.setScene(escena);
-            stage.setResizable(false);
             stage.show();
 
         }catch(IOException ioe){

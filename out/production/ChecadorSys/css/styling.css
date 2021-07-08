@@ -24,5 +24,14 @@
     -fx-background-color: #4B4A5A;
     -fx-border-color: #4B4A5A;
     -fx-border-width: 3px;
-
 }
+
+.buttonVolver{
+     -fx-background-color: #E79A58;
+ }
+ .buttonVolver:hover{
+     -fx-background-color: #A55540;
+ }
+ .buttonVolver:pressed{
+     -fx-background-color: #4B4A5A;
+ }

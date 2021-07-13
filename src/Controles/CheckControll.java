@@ -1,6 +1,8 @@
 package Controles;
 
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -19,16 +21,24 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
-import javafx.util.Pair;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class CheckControll implements Initializable {
+public class CheckControll implements Initializable{
+
+    private Calendar calendar;
+    private Timeline lineaTiempo = new Timeline();
+    private Timeline lineaSecundaria = new Timeline();
+
     @FXML
     private Label lblFecha;
 
@@ -95,6 +105,9 @@ public class CheckControll implements Initializable {
                 if(result.get().equals("admin")){
                     loadStage("/Vistas/Login.fxml", event, 1);
                     System.out.println("Correcto");
+                    lineaTiempo.stop();
+                    lineaSecundaria.stop();
+
                 }else{
                     Alert alert= new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Datos incorrectos");
@@ -107,9 +120,13 @@ public class CheckControll implements Initializable {
             result.ifPresent(passw -> System.out.println("Password: "+passw));
         }
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        calendar = Calendar.getInstance();
+        actuFecha();
+        actuaReloj();
+        ejecutaReloj();
     }
 
     private void loadStage(String url, Event event, int screen){
@@ -159,4 +176,61 @@ public class CheckControll implements Initializable {
             System.exit(0);
         }
     }
+
+    private void actuaReloj(){
+
+        Date fechaHoraActual= new Date();
+        String hr, min, seg, amPm;
+
+        calendar.setTime(fechaHoraActual);
+        amPm= calendar.get(Calendar.AM_PM) == Calendar.AM?"AM":"PM";
+
+        if(amPm.equals("PM")){
+            int h= calendar.get(Calendar.HOUR_OF_DAY)-12;
+            hr = h>9?""+h:"0"+h;
+        }else{
+            hr= calendar.get(Calendar.HOUR_OF_DAY)>9 ? ""+calendar.get(Calendar.HOUR_OF_DAY) : "0"+calendar.get(Calendar.HOUR_OF_DAY);
+        }
+        min= calendar.get(Calendar.MINUTE)>9 ? ""+calendar.get(Calendar.MINUTE) : "0"+calendar.get(Calendar.MINUTE);
+        seg= calendar.get(Calendar.SECOND)>9 ? ""+calendar.get(Calendar.SECOND) : "0"+calendar.get(Calendar.SECOND);
+
+        System.out.println("HORA: "+hr+":"+min+":"+seg+" "+amPm);
+        lblHora.setText(hr+":"+min+":"+seg+" "+amPm);
+    }
+
+    private void ejecutaReloj(){
+
+        lineaSecundaria.setCycleCount(Timeline.INDEFINITE);
+
+        KeyFrame keyPrimario = new KeyFrame(
+                new Duration(1000 - (calendar.get(Calendar.MILLISECOND)% 1000)),
+                (event) -> {
+                    actuaReloj();
+                    actuFecha();
+                    lineaSecundaria.play();
+                }
+        );
+
+        KeyFrame keySecundario = new KeyFrame(
+                Duration.seconds(1),
+                (event) -> {
+                    actuFecha();
+                    actuaReloj();
+                }
+        );
+
+        lineaTiempo.getKeyFrames().add(keyPrimario);
+        lineaSecundaria.getKeyFrames().add(keySecundario);
+        lineaTiempo.play();
+    }
+
+    private void actuFecha(){
+        String dia= String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
+        String [] mes = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
+        String ano= String.valueOf(calendar.get(Calendar.YEAR));
+
+        System.out.println("Mazatlán, Sinaloa "+dia+" de "+mes[calendar.get(Calendar.MONTH)]+" del "+ano+".");
+        lblFecha.setText("Mazatlán, Sinaloa "+dia+" de "+mes[calendar.get(Calendar.MONTH)]+" del "+ano+".");
+    }
 }
+

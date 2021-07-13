@@ -8,22 +8,32 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controles.CheckControll">
+<AnchorPane prefHeight="493.0" prefWidth="490.0" style="-fx-background-color: #E79A58; -fx-border-width: 3; -fx-border-color: #4B4A5A;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controles.CheckControll">
    <children>
-      <VBox alignment="TOP_CENTER" layoutX="300.0" layoutY="38.0" prefHeight="346.0" prefWidth="660.0" AnchorPane.bottomAnchor="135.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+      <VBox alignment="TOP_CENTER" layoutX="26.0" layoutY="26.0" prefHeight="368.0" prefWidth="444.0" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="23.0" AnchorPane.topAnchor="23.0">
          <children>
-            <Label fx:id="lblFecha" text="Label">
+            <Label fx:id="lblFecha" text="MAZATLAN, SINALOA 23 DE DICIEMBRE DEL 2021.">
                <VBox.margin>
                   <Insets top="20.0" />
-               </VBox.margin></Label>
-            <Label fx:id="lblHora" text="Label">
+               </VBox.margin>
+               <font>
+                  <Font name="Ubuntu Medium" size="17.0" />
+               </font></Label>
+            <Label fx:id="lblHora" text="04:51 PM">
                <VBox.margin>
                   <Insets top="10.0" />
-               </VBox.margin></Label>
-            <Button mnemonicParsing="false">
+               </VBox.margin>
+               <font>
+                  <Font name="Ubuntu Medium" size="64.0" />
+               </font></Label>
+            <Button mnemonicParsing="false" prefHeight="227.0" prefWidth="174.0" style="-fx-background-radius: 20 20 20 20;" styleClass="buttonEntrar" stylesheets="@../css/styling.css">
                <graphic>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imgs/captHuella.png" />
+                     </image></ImageView>
                </graphic>
                <VBox.margin>
                   <Insets top="10.0" />
@@ -31,9 +41,9 @@
             </Button>
          </children>
       </VBox>
-      <HBox layoutX="480.0" layoutY="400.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">
+      <HBox alignment="CENTER_RIGHT" layoutX="480.0" layoutY="400.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">
          <children>
-            <Button fx:id="btnSalir" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#eventAction">
+            <Button fx:id="btnSalir" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#eventAction" style="-fx-background-radius: 20 20 20 20;" styleClass="buttonEntrar" stylesheets="@../css/styling.css">
                <graphic>
                   <ImageView fitHeight="54.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
                      <image>

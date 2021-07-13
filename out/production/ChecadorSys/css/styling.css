@@ -1,6 +1,6 @@
 .button{
     -fx-background-color: #FFFFFF;
-    -fx-background-radios: 90 90 90 90;
+    -fx-background-radios: 20 20 20 20;
 }
 .button:hover{
     -fx-background-color: #E1D5D2;

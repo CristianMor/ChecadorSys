@@ -2,30 +2,36 @@ package Controles;
 
 import Modelos.Usuarios;
 import Modelos.UsuariosDAO;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.PasswordField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class LoginControll implements Initializable {
+
+    private final UsuariosDAO model = new UsuariosDAO();
 
     @FXML
     private ComboBox<String> userCBox;
@@ -57,30 +63,19 @@ public class LoginControll implements Initializable {
 
         if(evt.equals(userCBox)){
             System.out.println(userCBox.getSelectionModel().getSelectedItem());
+            cajaPass.setText("");
+            cajaPass.requestFocus();
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb){
 
-        UsuariosDAO model= new UsuariosDAO();
-        Usuarios usuario = new Usuarios();
-
-        /*usuario.setUsuario("Prueba1");
-        usuario.setUltimoInicio("2022/07/01");
-
-        if(model.addUsuario(usuario)){
-            System.out.println("Guardado con exito!");
-        }else{
-            System.out.println("No guardado!");
-        }*/
-
         ArrayList<Usuarios> listArr= model.selectUsuario("USUARIO", null);
-        String [] users = new String[5];
+        String [] users = new String[2];
 
         for(int i=0; i < listArr.size(); i++){
             users[i]= listArr.get(i).getUsuario();
-            System.out.println("Usuario: "+listArr.get(i).getUsuario());
         }
 
         ArrayList<String> listUser = new ArrayList<>();
@@ -95,38 +90,93 @@ public class LoginControll implements Initializable {
         Object evt = event.getSource();
 
         if(evt.equals(btnVolver)) {
-            try{
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/GetStarted.fxml"));
-
-                Parent root = loader.load();
-
-                Scene escena = new Scene(root);
-                Stage stage = new Stage();
-
-                stage.setScene(escena);
-                stage.initStyle(StageStyle.UNDECORATED);
-                stage.show();
-
-                Stage myStage = (Stage) this.btnEntrar.getScene().getWindow();
-                myStage.close();
-
-            }catch(IOException ioe){
-                Logger.getLogger(LoginControll.class.getName()).log(Level.SEVERE, null, ioe);
-            }
+            loadStage("/Vistas/GetStarted.fxml", event, 0);
         }else if(evt.equals(btnEntrar)){
             if(!cajaPass.getText().isEmpty()){
 
                 String user= userCBox.getSelectionModel().getSelectedItem();
                 String pass= cajaPass.getText();
 
-                System.out.println("USUARIO: "+user+"\nPASSWORD: "+pass);
+                int estado= model.log(user, pass);
+                if(estado !=-1){
+                    if(estado == 1){
+                        String formato = "yyyy-MM-dd HH:mm:ss";
+                        DateTimeFormatter formateador = DateTimeFormatter.ofPattern(formato);
+                        LocalDateTime ahora = LocalDateTime.now();
+
+                        String ultimoInicio = formateador.format(ahora);
+
+                        Usuarios usuario = new Usuarios();
+
+                        usuario.setIdUsuario((userCBox.getSelectionModel().getSelectedIndex()+1));
+                        usuario.setUltimoInicio(ultimoInicio);
+                        System.out.println(ultimoInicio);
+
+                        if(model.updateUsuario(usuario)){
+                            System.out.println("La fecha se actualizo de forma exitosa!");
+                        }else{
+                            System.out.println("No se puedo modificar la informacion!");
+                        }
+
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Datos correctos");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Bienvenido al sistema!");
+                        alert.showAndWait();
+                        System.out.println("Bienvenido al sistema!");
+
+                        loadStage("/Vistas/Principal.fxml",event, 1);
+                    }else{
+                        Alert alert= new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Datos incorrectos");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Ooops, los datos son incorrectos!");
+                        alert.showAndWait();
+
+                        System.out.println("Error al iniciar sesion datos de acceso incorrectos.");
+                        cajaPass.setText("");
+                        cajaPass.requestFocus();
+                    }
+                }
+
             }else{
-                Alert alerta = new Alert(Alert.AlertType.ERROR);
-                alerta.setTitle("Error");
-                alerta.setHeaderText("Error al iniciar sesion");
-                alerta.setContentText("Datos de acceso incorrectos!");
-                alerta.show();
+                Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+                alerta.setTitle("Datos incompletos");
+                alerta.setHeaderText(null);
+                alerta.setContentText("Por favor ingrese una contraseña.");
+                alerta.showAndWait();
+
+                cajaPass.requestFocus();
             }
         }
     }
+
+    private void loadStage(String url, Event event, int screen){
+        try{
+
+            ((Node) (event.getSource())).getScene().getWindow().hide();
+
+            /*Object eventSource = event.getSource();
+            Node sourceAsNode = (Node) eventSource;
+            Scene oldScene = sourceAsNode.getScene();
+            Window window = oldScene.getWindow();
+            Stage stage = (Stage) window;
+            stage.hide();*/
+
+            Parent root = FXMLLoader.load(getClass().getResource(url));
+            Scene scene = new Scene(root);
+            Stage nuevoStage= new Stage();
+
+            nuevoStage.setScene(scene);
+            if(screen > 0){
+                nuevoStage.resizableProperty().setValue(Boolean.FALSE);
+            }else{
+                nuevoStage.initStyle(StageStyle.UNDECORATED);
+            }
+            nuevoStage.show();
+        }catch(IOException ex){
+            Logger.getLogger(LoginControll.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 }

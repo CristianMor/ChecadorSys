@@ -1,8 +1,10 @@
 package Modelos;
 
+import java.awt.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class UsuariosDAO {
@@ -40,6 +42,39 @@ public class UsuariosDAO {
             }
         }
 
+        return estado;
+    }
+
+    public boolean updateUsuario(Usuarios usuario){
+        boolean estado = false;
+        Connection connect = null;
+
+        try{
+            connect = ConnectionPool.getInstance().getConnection();
+
+            if(connect != null){
+                String sql = "update usuarios set ULTIMO_INICIO=? where USUARIO_ID=?";
+
+                pst = connect.prepareStatement(sql);
+                pst.setString(1, usuario.getUltimoInicio());
+                pst.setInt(2, usuario.getIdUsuario());
+
+                int res= pst.executeUpdate();
+
+                estado= res > 0;
+
+            }else{
+                System.out.println("Conexion Fallida!");
+            }
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{
+                ConnectionPool.getInstance().closeConnection(connect);
+            }catch(Exception e){
+                System.out.println(e.getMessage());
+            }
+        }
         return estado;
     }
 
@@ -97,6 +132,84 @@ public class UsuariosDAO {
             }
         }
         return lista;
+    }
+
+
+
+    //VERDADERO SI SE EJECUTO DICHO PROCESO Y FALSO SI SE GENERO ALGUN PROBLEMA
+    public boolean deleteUsuario(int id){
+        boolean estado= false;
+        Connection connect = null;
+
+        try{
+            connect = ConnectionPool.getInstance().getConnection();
+
+            if(connect != null){
+                String sql ="delete from usuarios where USUARIO_ID=?";
+
+                //Se carga la sentencia
+                pst = connect.prepareStatement(sql);
+                pst.setInt(1, id);
+
+                //se ejecuta la sentencia
+                int res = pst.executeUpdate();
+
+                estado = res > 0;
+            }else{
+                System.out.println("Conexion Fallida");
+            }
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }finally {
+            try{
+                ConnectionPool.getInstance().closeConnection(connect);
+            }catch(Exception e){
+                System.out.println(e.getMessage());
+            }
+        }
+
+        return estado;
+    }
+
+    public int log(String user, String password){
+        Connection connect = null;
+        int estado = -1;
+
+        try{
+            connect = ConnectionPool.getInstance().getConnection();
+            if(connect != null){
+                //BINARY valida bit por bit si el usuario tiene una mayuscula y si el usuario que ingrese no tiene la
+                // mayuscula entonces no se va validar.
+
+                String sql= "select * from usuarios where BINARY USUARIO=? AND PASSWORD=AES_ENCRYPT(?, 'key')";
+
+                pst = connect.prepareStatement(sql);
+                pst.setString(1, user);
+                pst.setString(2, password);
+
+                rs= pst.executeQuery();
+                if(rs.next()){
+                    //SE ENCONTRO EN LA BD
+                    estado= 1;
+                }else{
+                    //NOSE ENCONTRO INFORMACION ENLA BD
+                    estado = 0;
+                }
+            }else{
+                System.out.println("Se ah producido un error");
+            }
+        }catch(HeadlessException | SQLException ex){
+            System.out.println("Hubo un error de jecucion, posibles errores:\n"+ex.getMessage());
+        }finally{
+            try{
+                if(connect != null){
+                    ConnectionPool.getInstance().closeConnection(connect);
+                }
+            }catch(SQLException ex){
+                System.err.println(ex.getMessage());
+            }
+        }
+        return estado;
     }
 
 }

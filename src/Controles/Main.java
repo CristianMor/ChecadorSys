@@ -1,17 +1,11 @@
 package Controles;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
-import Modelos.ConnectionPool;
-import Modelos.Usuarios;
-import Modelos.UsuariosDAO;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -19,14 +13,12 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage){
-        try{
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("../Vistas/GetStarted.fxml"));
-            Pane ventana = loader.load();
 
-            Scene escena = new Scene(ventana);
+        try{
+            Parent root = FXMLLoader.load(getClass().getResource("/Vistas/GetStarted.fxml"));
+            Scene scene = new Scene(root);
             stage.initStyle(StageStyle.UNDECORATED);
-            stage.setScene(escena);
+            stage.setScene(scene);
             stage.show();
 
         }catch(IOException ioe){
@@ -37,4 +29,5 @@ public class Main extends Application {
     public static void main(String[] args){
         launch(args);
     }
+
 }

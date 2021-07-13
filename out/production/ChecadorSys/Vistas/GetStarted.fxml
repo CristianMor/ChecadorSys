@@ -10,11 +10,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #ffffff; -fx-border-width: 3; -fx-border-color: #000000;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controles.GetStartedControll">
+<AnchorPane fx:id="contenedor" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #ffffff; -fx-border-width: 3; -fx-border-color: #000000;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controles.GetStartedControll">
    <children>
       <Button fx:id="btnClose" contentDisplay="GRAPHIC_ONLY" layoutX="562.0" layoutY="14.0" mnemonicParsing="false" onAction="#salir" stylesheets="@../css/styling.css">
          <graphic>
-            <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../imgs/delete.png" />
                </image>
@@ -27,12 +27,12 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <ImageView fx:id="imgStarted" fitHeight="337.0" fitWidth="368.0" layoutX="44.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgStarted" fitHeight="390.0" fitWidth="390.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../imgs/SysCheck.jpeg" />
          </image>
       </ImageView>
-      <Button fx:id="btnEntrar" contentDisplay="GRAPHIC_ONLY" layoutX="411.0" layoutY="155.0" mnemonicParsing="false" onAction="#click" prefHeight="91.0" prefWidth="82.0" stylesheets="@../css/styling.css">
+      <Button fx:id="btnEntrar" contentDisplay="GRAPHIC_ONLY" layoutX="413.0" layoutY="155.0" mnemonicParsing="false" onAction="#click" prefHeight="91.0" prefWidth="82.0" stylesheets="@../css/styling.css">
          <graphic>
             <ImageView fitHeight="71.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                <image>

@@ -125,7 +125,13 @@ public class LoginControll implements Initializable {
                         alert.showAndWait();
                         System.out.println("Bienvenido al sistema!");
 
-                        loadStage("/Vistas/Principal.fxml",event, 1);
+                        if(userCBox.getSelectionModel().getSelectedItem().equals("User")){
+                            System.out.println("Abre aqui interfaz usuario");
+                            loadStage("/Vistas/Check.fxml", event, 0);
+                        }else{
+                            System.out.println("Abre aqui Admin");
+                            loadStage("/Vistas/Principal.fxml",event, 1);
+                        }
                     }else{
                         Alert alert= new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Datos incorrectos");

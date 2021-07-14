@@ -1,24 +1,205 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controles.PrincipalControll">
-   <center>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #2c2a38;" BorderPane.alignment="CENTER">
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1208.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controles.PrincipalControll">
+   <left>
+      <VBox prefHeight="200.0" prefWidth="240.0" styleClass="backgroundMenu" stylesheets="@../css/styling.css" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Continuara..." textFill="WHITE">
-               <font>
-                  <Font name="Ubuntu Medium" size="41.0" />
-               </font>
-            </Label>
+            <VBox alignment="CENTER" prefHeight="320.0" prefWidth="100.0" styleClass="profile-layout" stylesheets="@../css/styling.css">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imgs/AdminProfile.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Admin Profile" textFill="WHITE">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="Ubuntu Bold" size="22.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </VBox.margin>
+            </VBox>
+            <Pane prefHeight="220.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+            <VBox alignment="CENTER" prefHeight="350.0" prefWidth="100.0">
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </VBox.margin>
+               <children>
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="50.0" prefWidth="221.0" styleClass="btnHome" stylesheets="@../css/styling.css" text="Empleados" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/persons.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                     <font>
+                        <Font name="Ubuntu Light" size="16.0" />
+                     </font>
+                  </Button>
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="50.0" prefWidth="221.0" styleClass="btnHome" stylesheets="@../css/styling.css" text="Reporte" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/calendar.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                     <font>
+                        <Font name="Ubuntu Light" size="16.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="40.0" styleClass="btnHome" stylesheets="@../css/styling.css">
+                     <graphic>
+                        <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/volver-white.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+            <Pane prefHeight="220.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
          </children>
-      </HBox>
+      </VBox>
+   </left>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="background-white" stylesheets="@../css/styling.css" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="Administrador">
+                     <font>
+                        <Font name="Ubuntu Bold" size="22.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                  <Button mnemonicParsing="false" prefHeight="40.0" stylesheets="@../css/styling.css" text="Nuevo Empleado">
+                     <font>
+                        <Font name="Ubuntu Medium" size="16.0" />
+                     </font>
+                  </Button>
+                  <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" styleClass="transparent" stylesheets="@../css/styling.css">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/lupa32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <Label prefHeight="30.0" prefWidth="830.0" text="Empleados">
+               <font>
+                  <Font name="Ubuntu" size="22.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="20.0" />
+               </VBox.margin>
+            </Label>
+            <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox>
+                     <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="981.0" spacing="10.0" styleClass="light-gray-background" stylesheets="@../css/styling.css">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="24.0" prefWidth="80.0" text="ID">
+                                 <font>
+                                    <Font name="Ubuntu Medium" size="20.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label prefWidth="100.0" text="Foto">
+                                 <font>
+                                    <Font name="Ubuntu Medium" size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label prefWidth="150.0" text="Nombre">
+                                 <font>
+                                    <Font name="Ubuntu Medium" size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label prefWidth="170.0" text="Ap. Paterno">
+                                 <font>
+                                    <Font name="Ubuntu Medium" size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label prefWidth="140.0" text="Puesto">
+                                 <font>
+                                    <Font name="Ubuntu Medium" size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label prefHeight="24.0" prefWidth="150.0" text="Acciones">
+                                 <font>
+                                    <Font name="Ubuntu Medium" size="20.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <ScrollPane prefHeight="416.0" prefWidth="917.0" styleClass="transparent" stylesheets="@../css/styling.css">
+                           <content>
+                              <VBox fx:id="empleadoLayout" prefHeight="412.0" prefWidth="946.0" spacing="10.0" styleClass="background-white" stylesheets="@../css/styling.css">
+                                 <padding>
+                                    <Insets bottom="10.0" top="10.0" />
+                                 </padding></VBox>
+                           </content>
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </VBox.margin>
+                        </ScrollPane>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
    </center>
 </BorderPane>

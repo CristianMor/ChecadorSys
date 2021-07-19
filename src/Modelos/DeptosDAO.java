@@ -84,10 +84,10 @@ public class DeptosDAO {
     //2 PARAMETROS EL PRIMERO POR QUE VAMOS A MANEJAR FILTROS DE BUSQUEDA QUE SERIA POR COLUMNA(*, NOMBRE, ETC)
     //EL SEGUNDO PARAMETRO ES DE ARRAYLIST ES EL QUE CONTIENE LA COINCIDENCIA QUE QUIERO BUSCAR.
 
-    public ArrayList<Usuarios> selectUsuario(String filtro, ArrayList<String> data){
+    public ArrayList<Deptos> selectDeptos(String filtro, ArrayList<String> data){
 
-        ArrayList<Usuarios> lista = new ArrayList<>();
-        Usuarios usuario;
+        ArrayList<Deptos> lista = new ArrayList<>();
+        Deptos deptos;
         Connection connect = null;
 
         try{
@@ -97,8 +97,8 @@ public class DeptosDAO {
                 String sql= "";
 
                 switch(filtro){
-                    case "USUARIO":
-                        sql= "select USUARIO from usuarios";
+                    case "NOMBRE_DEPTO":
+                        sql= "select * from departamentos";
                         pst= connect.prepareStatement(sql);
                         //pst.setString(1, data.get(0));
                         break;
@@ -110,13 +110,14 @@ public class DeptosDAO {
                 rs= pst.executeQuery();
 
                 while(rs.next()){
-                    usuario = new Usuarios();
+                    deptos = new Deptos();
 
                     //usuario.setIdUsuario(rs.getInt("USUARIO_ID"));
-                    usuario.setUsuario(rs.getString("USUARIO"));
+                    deptos.setNombre_Depto(rs.getString("NOMBRE_DEPTO"));
+                    System.out.println("Nombre: "+deptos.getNombre_Depto());
                     //usuario.setUltimoInicio(rs.getString("ULTIMO_INICIO"));
 
-                    lista.add(usuario);
+                    lista.add(deptos);
                 }
             }else{
                 System.out.println("Conexion Fallida!");

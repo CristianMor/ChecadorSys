@@ -3,7 +3,6 @@ package Controles;
 
 import Modelos.Checado;
 import Modelos.ChecadoDAO;
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -40,6 +39,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class CheckControll implements Initializable{
+
     private final ChecadoDAO model = new ChecadoDAO();
 
     private Calendar calendar;
@@ -204,7 +204,7 @@ public class CheckControll implements Initializable{
                             System.out.println("La hora de salida= "+obtenerHora());
                             model.updateHraSalida(chek.getHra_Salida(), fecha, model.id_Empleado(result.get()));
 
-                            Alert alert= new Alert(Alert.AlertType.CONFIRMATION);
+                            Alert alert= new Alert(Alert.AlertType.INFORMATION);
                             alert.setTitle("Registro");
                             alert.setHeaderText(null);
                             alert.setContentText("Su SALIDA se registro con exito!");
@@ -227,7 +227,7 @@ public class CheckControll implements Initializable{
                             System.out.println("Valor fecha: "+chek.getFecha());
                             System.out.println("Valor empleado: "+chek.getEmpleado());
 
-                            Alert alert= new Alert(Alert.AlertType.CONFIRMATION);
+                            Alert alert= new Alert(Alert.AlertType.INFORMATION);
                             alert.setTitle("Registro");
                             alert.setHeaderText(null);
                             alert.setContentText("Su ENTRADA se registro con exito!");

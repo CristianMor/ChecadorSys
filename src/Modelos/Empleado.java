@@ -1,6 +1,7 @@
 package Modelos;
 
 public class Empleado {
+
     private int id_empleado;
     private String nombre;
     private String ap_paterno;

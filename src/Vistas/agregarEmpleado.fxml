@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="616.0" style="-fx-background-color: #E79A58; -fx-border-color: #2c2a38; -fx-border-width: 3;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controles.aggEmpleControll">
+   <children>
+      <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="200.0" style="-fx-background-color: #2c2a38;">
+         <children>
+            <Label text="Nuevo empleado" textFill="#ebd4d4">
+               <font>
+                  <Font name="Ubuntu Medium" size="32.0" />
+               </font>
+            </Label>
+         </children>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="380.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="361.0">
+                     <children>
+                        <Label text="Nombre:">
+                           <font>
+                              <Font name="Ubuntu Light" size="20.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="cajaNombre" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="12.0" prefWidth="212.0">
+                           <HBox.margin>
+                              <Insets left="40.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" prefHeight="40.0" prefWidth="373.0">
+                     <children>
+                        <Label text="Ap. Paterno:">
+                           <font>
+                              <Font name="Ubuntu Light" size="20.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="cajaAPaterno" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="24.0" prefWidth="212.0">
+                           <HBox.margin>
+                              <Insets left="8.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="361.0">
+                     <children>
+                        <Label text="Ap. Materno:">
+                           <font>
+                              <Font name="Ubuntu Light" size="20.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="cajaAMaterno" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="24.0" prefWidth="212.0">
+                           <HBox.margin>
+                              <Insets left="4.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="361.0">
+                     <children>
+                        <Label text="Cumpleaños:">
+                           <font>
+                              <Font name="Ubuntu Light" size="20.0" />
+                           </font>
+                        </Label>
+                        <DatePicker fx:id="cajaBirth" prefHeight="24.0" prefWidth="212.0" promptText="Fecha nacimiento">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </DatePicker>
+                     </children>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="361.0">
+                     <children>
+                        <Label text="Telefono:">
+                           <font>
+                              <Font name="Ubuntu Light" size="20.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="cajaTelef" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="24.0" prefWidth="212.0">
+                           <HBox.margin>
+                              <Insets left="35.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="361.0">
+                     <children>
+                        <Label text="Puesto:">
+                           <font>
+                              <Font name="Ubuntu Light" size="20.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="cajaPuesto" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="24.0" prefWidth="212.0">
+                           <HBox.margin>
+                              <Insets left="53.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" prefHeight="40.0" prefWidth="361.0">
+                     <children>
+                        <Label text="Depto:">
+                           <font>
+                              <Font name="Ubuntu Light" size="20.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="CBDepto" prefHeight="24.0" prefWidth="212.0" promptText="Departamentos">
+                           <HBox.margin>
+                              <Insets left="60.0" />
+                           </HBox.margin>
+                        </ComboBox>
+                     </children>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="373.0">
+                     <children>
+                        <Label text="NIP:">
+                           <font>
+                              <Font name="Ubuntu Light" size="20.0" />
+                           </font>
+                        </Label>
+                        <PasswordField fx:id="cajaNip" prefHeight="24.0" prefWidth="88.0">
+                           <HBox.margin>
+                              <Insets left="5.0" right="10.0" />
+                           </HBox.margin>
+                        </PasswordField>
+                        <Label text="Confirmar NIP:">
+                           <font>
+                              <Font name="Ubuntu Light" size="20.0" />
+                           </font>
+                        </Label>
+                        <PasswordField fx:id="cajaConfirmNip" prefHeight="24.0" prefWidth="95.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </PasswordField>
+                     </children>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="89.0" prefWidth="380.0" spacing="20.0">
+                     <children>
+                        <Button fx:id="btnGuardar" mnemonicParsing="false" onMouseClicked="#guardar" prefHeight="40.0" prefWidth="160.0" style="-fx-background-radius: 50;" stylesheets="@../css/styling.css" text="Guardar">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../imgs/guardar-el-archivo.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font name="Ubuntu Medium" size="16.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="btnBorrar" mnemonicParsing="false" onMouseClicked="#borrar" prefHeight="40.0" prefWidth="160.0" style="-fx-background-radius: 50;" stylesheets="@../css/styling.css" text="Borrar">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../imgs/cerrar.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font name="Ubuntu Medium" size="16.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+               <HBox.margin>
+                  <Insets top="10.0" />
+               </HBox.margin>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="473.0" prefWidth="243.0" spacing="10.0">
+               <children>
+                  <ImageView fitHeight="154.0" fitWidth="220.0" pickOnBounds="true" preserveRatio="true">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                     <image>
+                        <Image url="@../imgs/perfil2.jpg" />
+                     </image>
+                  </ImageView>
+                  <Button mnemonicParsing="false" styleClass="btnHome" stylesheets="@../css/styling.css" text="Foto" textFill="#ebd4d4">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/more.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <ImageView fitHeight="154.0" fitWidth="220.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imgs/huella.jpg" />
+                     </image>
+                  </ImageView>
+                  <Button mnemonicParsing="false" styleClass="btnHome" stylesheets="@../css/styling.css" text="Huella" textFill="#ebd4d4">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/more.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</VBox>

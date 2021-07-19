@@ -1,5 +1,8 @@
 package Modelos;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -49,10 +52,50 @@ public class EmpleadosDAO{
         return estado;
     }
 
-    public ArrayList<Empleado> obtenerEmpleados(){
+    public boolean updateEmpleado(Empleado empleado){
+        boolean estado = false;
+        Connection connect = null;
 
-        ArrayList<Empleado> lista = new ArrayList<>();
-       Empleado empleados;
+        try{
+            connect = ConnectionPool.getInstance().getConnection();
+
+            if(connect != null){
+                String sql = "update empleados set NOMBRE=?, AP_PATERNO=?, AP_MATERNO=?, PUESTO=?, FECHA_NACIMIENTO=?, TELEFONO=?, NIP=?, DEPTO=? where ID_EMPLEADO=?";
+
+                pst = connect.prepareStatement(sql);
+                pst.setString(1, empleado.getNombre());
+                pst.setString(2, empleado.getAp_paterno());
+                pst.setString(3, empleado.getAp_materno());
+                pst.setString(4, empleado.getPuesto());
+                pst.setString(5, empleado.getFecha_nacimiento());
+                pst.setString(6, empleado.getTelefono());
+                pst.setString(7, empleado.getNip());
+                pst.setInt(8, empleado.getDepto());
+                pst.setInt(9,empleado.getId());
+
+                int res= pst.executeUpdate();
+
+                estado= res > 0;
+
+            }else{
+                System.out.println("Conexion Fallida!");
+            }
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{
+                ConnectionPool.getInstance().closeConnection(connect);
+            }catch(Exception e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return estado;
+    }
+
+    public ObservableList<Empleado> obtenerEmpleados(){
+
+        ObservableList<Empleado> lista = FXCollections.observableArrayList();
+        Empleado empleados;
         Connection connect = null;
 
         try{

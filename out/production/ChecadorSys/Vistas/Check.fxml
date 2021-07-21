@@ -28,7 +28,7 @@
                <font>
                   <Font name="Ubuntu Medium" size="64.0" />
                </font></Label>
-            <Button mnemonicParsing="false" prefHeight="227.0" prefWidth="174.0" style="-fx-background-radius: 20 20 20 20;" styleClass="buttonEntrar" stylesheets="@../css/styling.css">
+            <Button fx:id="btnCheck" mnemonicParsing="false" onAction="#eventAction" prefHeight="227.0" prefWidth="174.0" style="-fx-background-radius: 20 20 20 20;" styleClass="buttonEntrar" stylesheets="@../css/styling.css">
                <graphic>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>

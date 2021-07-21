@@ -13,6 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -122,6 +123,10 @@ public class LoginControll implements Initializable {
                         alert.setTitle("Datos correctos");
                         alert.setHeaderText(null);
                         alert.setContentText("Bienvenido al sistema!");
+                        ImageView icon = new ImageView("/imgs/come-in.png");
+                        icon.setFitHeight(64);
+                        icon.setFitWidth(64);
+                        alert.getDialogPane().setGraphic(icon);
                         alert.showAndWait();
                         System.out.println("Bienvenido al sistema!");
 
@@ -137,6 +142,10 @@ public class LoginControll implements Initializable {
                         alert.setTitle("Datos incorrectos");
                         alert.setHeaderText(null);
                         alert.setContentText("Ooops, los datos son incorrectos!");
+                        ImageView icon = new ImageView("/imgs/errorAlert.png");
+                        icon.setFitHeight(64);
+                        icon.setFitWidth(64);
+                        alert.getDialogPane().setGraphic(icon);
                         alert.showAndWait();
 
                         System.out.println("Error al iniciar sesion datos de acceso incorrectos.");
@@ -150,6 +159,10 @@ public class LoginControll implements Initializable {
                 alerta.setTitle("Datos incompletos");
                 alerta.setHeaderText(null);
                 alerta.setContentText("Por favor ingrese una contraseña.");
+                ImageView icon = new ImageView("/imgs/errorAlert.png");
+                icon.setFitHeight(64);
+                icon.setFitWidth(64);
+                alerta.getDialogPane().setGraphic(icon);
                 alerta.showAndWait();
 
                 cajaPass.requestFocus();
@@ -176,6 +189,13 @@ public class LoginControll implements Initializable {
             nuevoStage.setScene(scene);
             if(screen > 0){
                 nuevoStage.resizableProperty().setValue(Boolean.FALSE);
+                nuevoStage.setOnCloseRequest(new EventHandler<WindowEvent>(){
+                    @Override
+                    public void handle(WindowEvent e){
+                        e.consume();
+                        cerrar(nuevoStage);
+                    }
+                });
             }else{
                 nuevoStage.initStyle(StageStyle.UNDECORATED);
             }
@@ -185,4 +205,16 @@ public class LoginControll implements Initializable {
         }
     }
 
+    private void cerrar(Stage stage){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmar");
+        alert.setHeaderText("");
+        alert.setContentText("Esta seguro que desea salir?");
+
+        if(alert.showAndWait().get() == ButtonType.OK) {
+            System.out.println("Haz salido");
+            Platform.exit();
+            System.exit(0);
+        }
+    }
 }

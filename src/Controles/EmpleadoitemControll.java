@@ -1,8 +1,10 @@
 package Controles;
 
 import Modelos.Empleado;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,15 +29,30 @@ public class EmpleadoitemControll implements Initializable{
     @FXML
     private Label lblPuesto;
 
+    @FXML
+    private Button btnVer;
+
+    @FXML
+    private Button btnEditar;
+
+    @FXML
+    private Button btnEliminar;
+
+    @FXML
+    void eventAction(ActionEvent event) {
+        
+    }
+
     public void setData(Empleado empleado){
-        lblId.setText(empleado.getId());
+        lblId.setText(String.valueOf(empleado.getId()));
 
-        Image imgProfile = new Image(this.getClass().getResourceAsStream(empleado.getImgSrc()));
-        imgView.setImage(imgProfile);
+        /*Image imgProfile = new Image(this.getClass().getResourceAsStream("../imgs/Perfil2.jpg").toString());
+        imgView.setImage(imgProfile);*/
 
+        System.out.println(empleado.getImgSrc());
         lblNombre.setText(empleado.getNombre());
-        lblApPaterno.setText("Apellidolargo");
-        lblPuesto.setText("Puestolargo");
+        lblApPaterno.setText(empleado.getAp_paterno());
+        lblPuesto.setText(empleado.getPuesto());
     }
 
     @Override

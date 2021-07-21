@@ -1,6 +1,9 @@
 package Controles;
 
 
+import Modelos.Checado;
+import Modelos.ChecadoDAO;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -24,7 +27,10 @@ import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -34,6 +40,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class CheckControll implements Initializable{
+    private final ChecadoDAO model = new ChecadoDAO();
 
     private Calendar calendar;
     private Timeline lineaTiempo = new Timeline();
@@ -47,6 +54,9 @@ public class CheckControll implements Initializable{
 
     @FXML
     private Button btnSalir;
+
+    @FXML
+    private Button btnCheck;
 
     @FXML
     private void eventAction(ActionEvent event){
@@ -119,6 +129,128 @@ public class CheckControll implements Initializable{
 
             result.ifPresent(passw -> System.out.println("Password: "+passw));
         }
+        else if(evt.equals(btnCheck)){
+            Dialog<String> dialog = new Dialog<>();
+            dialog.setTitle("ACCESO");
+            dialog.setHeaderText("Ingrese su nip para registrar.");
+
+            //ESTABLESCO EL ICONO ESTE DEBE ESTAR INCLUIDO EN EL PROYECTO
+            dialog.setGraphic(new ImageView(this.getClass().getResource("/imgs/nip.png").toString()));
+            Stage stage= (Stage) dialog.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(new Image(this.getClass().getResource("/imgs/keys.png").toString()));
+
+            //SE CONFIGURA Y SE AGREGAN LOS TIPOS DE BOTONES.
+            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+
+            //CREE LAS ETIUQUETAS Y LOS CAMPOS
+            GridPane grid= new GridPane();
+            grid.setHgap(10);
+            grid.setVgap(10);
+            grid.setPadding(new Insets(20, 150, 10, 10));
+
+            PasswordField cajaNip= new PasswordField();
+            cajaNip.setPromptText("Nip");
+
+            grid.add(new Label("N I P: "), 0, 0);
+            grid.add(cajaNip, 1, 0);
+
+            //ACTIVAR / DESACTIVAR EL BOTON DE OK DEPENDIENDO DE SI SE INGRESO UNA CONTRASE;A
+            Node okButton = dialog.getDialogPane().lookupButton(ButtonType.OK);
+            okButton.setDisable(true);
+
+            //REALIZA LA VALIDACION UTILIZANDO LA SINTAXIS LAMBDA DE JAVA 8.
+            cajaNip.textProperty().addListener((observable, valorViejo, valorNuevo)->{
+                okButton.setDisable(valorNuevo.trim().isEmpty());
+            });
+
+            dialog.getDialogPane().setContent(grid);
+
+            //FOCUS EN EL CAMPO PASSWORD
+            Platform.runLater(()-> cajaNip.requestFocus());
+
+            //CONVERTIMOS EL RESULTADO EN UN PAR DE CONTRASE;A CUANDO SE HACE CLICK EN OK
+            dialog.setResultConverter(dialogButton ->{
+                if(dialogButton == ButtonType.OK) {
+                    return new String(cajaNip.getText());
+                }
+                return null;
+            });
+
+            Optional<String> result = dialog.showAndWait();
+            int existe = model.log(result.get());
+
+            if(existe != -1){
+                if(existe == 1){
+                    System.out.println("nip: "+result.get());
+                    System.out.println("El nip si existe en la bd");
+                    System.out.println("Le pertenece al empleado con id: "+ model.id_Empleado(result.get()));
+
+                    String formato = "yyyy-MM-dd";
+                    DateTimeFormatter formateador = DateTimeFormatter.ofPattern(formato);
+                    LocalDateTime ahora = LocalDateTime.now();
+
+                    String fecha = formateador.format(ahora);
+
+                    Checado chek = new Checado();
+                    System.out.println("La fecha es: "+fecha);
+
+                    int yaRegistrado = model.exists(fecha, model.id_Empleado(result.get()));
+                    System.out.println("EXISTS: "+yaRegistrado);
+                    if(yaRegistrado != -1){
+                        if(yaRegistrado == 1){
+                            System.out.println("YA EXISTE");
+                            chek.setHra_Salida(obtenerHora());
+                            System.out.println("Hora salida registro: "+chek.getHra_Salida());
+                            System.out.println("La hora de salida= "+obtenerHora());
+                            model.updateHraSalida(chek.getHra_Salida(), fecha, model.id_Empleado(result.get()));
+
+                            Alert alert= new Alert(Alert.AlertType.CONFIRMATION);
+                            alert.setTitle("Registro");
+                            alert.setHeaderText(null);
+                            alert.setContentText("Su SALIDA se registro con exito!");
+                            ImageView icon = new ImageView("/imgs/okAlert.png");
+                            icon.setFitHeight(64);
+                            icon.setFitWidth(64);
+                            alert.getDialogPane().setGraphic(icon);
+                            alert.showAndWait();
+                        }else{
+                            System.out.println("NO EXISTE");
+                            chek.setFecha(fecha);
+                            System.out.println("Fecha nuevo reg: "+chek.getFecha());
+                            chek.setEmpleado(model.id_Empleado(result.get()));
+                            System.out.println("Empleado nuevo reg: "+model.id_Empleado(result.get()));
+                            chek.setHra_Entrada(obtenerHora());
+                            System.out.println("La hora de entrada= "+chek.getHra_Entrada());
+
+                            model.checar(chek);
+                            System.out.println("Valor hora entrada: "+chek.getHra_Entrada());
+                            System.out.println("Valor fecha: "+chek.getFecha());
+                            System.out.println("Valor empleado: "+chek.getEmpleado());
+
+                            Alert alert= new Alert(Alert.AlertType.CONFIRMATION);
+                            alert.setTitle("Registro");
+                            alert.setHeaderText(null);
+                            alert.setContentText("Su ENTRADA se registro con exito!");
+                            ImageView icon = new ImageView("/imgs/okAlert.png");
+                            icon.setFitHeight(64);
+                            icon.setFitWidth(64);
+                            alert.getDialogPane().setGraphic(icon);
+                            alert.showAndWait();
+                        }
+                    }
+                }else{
+                    Alert alert= new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Datos incorrectos");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Ooops, el nip es incorrecto!");
+                    ImageView icon = new ImageView("/imgs/errorAlert.png");
+                    icon.setFitHeight(64);
+                    icon.setFitWidth(64);
+                    alert.getDialogPane().setGraphic(icon);
+                    alert.showAndWait();
+                }
+            }
+        }
     }
 
     @Override
@@ -175,6 +307,18 @@ public class CheckControll implements Initializable{
             Platform.exit();
             System.exit(0);
         }
+    }
+
+    private String obtenerHora(){
+        String hra="";
+        Calendar calendario = new GregorianCalendar();
+        int hora, min;
+
+        hora= calendario.get(Calendar.HOUR_OF_DAY);
+        min= calendario.get(Calendar.MINUTE);
+
+        hra=hora+":"+min;
+        return hra;
     }
 
     private void actuaReloj(){

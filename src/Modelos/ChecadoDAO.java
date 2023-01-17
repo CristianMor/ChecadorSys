@@ -1,5 +1,8 @@
 package Modelos;
 
+
+Este es el modelo;
+
 import java.awt.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

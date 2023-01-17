@@ -1,3 +1,4 @@
+aqui se arreglo tambien algo ene ste archivo;
 package Controles;
 
 import Modelos.*;

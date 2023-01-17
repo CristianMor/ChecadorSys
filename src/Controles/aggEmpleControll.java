@@ -1,6 +1,8 @@
 aqui se arreglo tambien algo ene ste archivo;
 package Controles;
 
+
+aqui se agrego lo demas se modifico lo mnuevo en el mismo archivo se edito desde fix/'algo';
 import Modelos.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
